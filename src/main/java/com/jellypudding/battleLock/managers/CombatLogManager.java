@@ -53,7 +53,7 @@ public class CombatLogManager {
         Villager npc = (Villager) location.getWorld().spawnEntity(location, EntityType.VILLAGER);
         
         // Setup the NPC with player data
-        npc.customName(Component.text(player.getName()));
+        npc.customName(player.displayName());
         npc.setCustomNameVisible(true);
         npc.setAI(false);
         npc.setInvulnerable(false);

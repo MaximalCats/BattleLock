@@ -30,9 +30,6 @@ public class PlayerListener implements Listener {
         if (combatManager.isPlayerTagged(player)) {
             // Player is combat logging - create a combat log NPC
             combatLogManager.createCombatLogNPC(player);
-            
-            // Log the combat log attempt
-            plugin.getLogger().warning(player.getName() + " logged out during combat! Created a combat log NPC.");
         }
     }
 
