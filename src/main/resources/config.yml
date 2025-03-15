@@ -1,0 +1,26 @@
+# BattleLock Configuration
+
+# Combat tag duration in seconds
+# How long players remain in combat after receiving/dealing damage
+combat-tag-duration: 15
+
+# Combat log NPC despawn time in seconds
+# How long a combat log NPC remains before disappearing
+combat-log-despawn-time: 30
+
+# List of commands allowed during combat
+# Players can use these commands even while in combat
+allowed-commands:
+  - "tell"
+  - "msg"
+  - "r"
+  - "w"
+  - "me"
+
+# Messages
+messages:
+  combat-started: "&cYou are now in combat. Do not log out or you will be punished."
+  combat-ended: "&aYou are no longer in combat. You may now log out safely."
+  command-blocked: "&cYou cannot use commands while in combat. Time remaining: {time}s"
+  combat-log-npc-killed: "&cYour combat log NPC was killed while you were offline. You have lost your items."
+  combat-log-npc-returned: "&eYour combat log NPC has been removed."

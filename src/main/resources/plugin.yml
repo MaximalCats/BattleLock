@@ -1,0 +1,6 @@
+name: BattleLock
+version: '1.0-SNAPSHOT'
+main: com.jellypudding.battleLock.BattleLock
+api-version: '1.21'
+description: "Prevents commands during PVP and punishes combat logging"
+author: AlphaAlex115
