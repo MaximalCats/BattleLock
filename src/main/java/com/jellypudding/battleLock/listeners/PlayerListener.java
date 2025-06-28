@@ -25,11 +25,13 @@ public class PlayerListener implements Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
-        
+
         // Check if player is in combat
         if (combatManager.isPlayerTagged(player)) {
             // Player is combat logging - create a combat log NPC
             combatLogManager.createCombatLogNPC(player);
+
+            plugin.getLogger().info(player.getName() + " logged out during combat and will be punished if their NPC is killed");
         }
     }
 

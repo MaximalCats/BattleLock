@@ -22,33 +22,33 @@ public class CommandListener implements Listener {
     public CommandListener(BattleLock plugin, CombatManager combatManager) {
         this.plugin = plugin;
         this.combatManager = combatManager;
-        
+
         // Load allowed commands from config
         List<String> configAllowedCommands = plugin.getConfig().getStringList("allowed-commands");
-        this.allowedCommands = configAllowedCommands.isEmpty() 
+        this.allowedCommands = configAllowedCommands.isEmpty()
                 ? new ArrayList<>(List.of("tell", "msg", "r", "me"))
                 : configAllowedCommands;
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onPlayerCommand(PlayerCommandPreprocessEvent event) {
         Player player = event.getPlayer();
-        
+
         // Check if player is in combat
         if (combatManager.isPlayerTagged(player)) {
             String command = event.getMessage().substring(1).split(" ")[0].toLowerCase();
-            
+
             // Allow specific whitelisted commands
             for (String allowedCommand : allowedCommands) {
                 if (command.equals(allowedCommand)) {
                     return;
                 }
             }
-            
+
             // Block all other commands
             event.setCancelled(true);
-            player.sendMessage(Component.text("You cannot use commands while in combat. Time remaining: " + 
+            player.sendMessage(Component.text("You cannot use commands while in combat. Time remaining: " +
                     combatManager.getTimeUntilTagExpires(player) + "s", NamedTextColor.RED));
         }
     }
-} 
+}
