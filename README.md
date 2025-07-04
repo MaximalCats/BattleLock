@@ -1,5 +1,5 @@
 # BattleLock Plugin
-**BattleLock** is a Minecraft Paper 1.21.6 plugin that prevents combat logging and command use during PvP. When players engage in PvP combat, they are "tagged" and cannot use most commands until the tag expires. If a player logs out during combat, an NPC is created in their place that can be killed by other players - potentially causing the combat logger to lose all their items when they return.
+**BattleLock** is a Minecraft Paper 1.21.7 plugin that prevents combat logging and command use during PvP. When players engage in PvP combat, they are "tagged" and cannot use most commands until the tag expires. If a player logs out during combat, an NPC is created in their place that can be killed by other players - potentially causing the combat logger to lose all their items when they return.
 
 ## Features
 - Prevents combat logging by creating killable NPCs when players log out during PvP
