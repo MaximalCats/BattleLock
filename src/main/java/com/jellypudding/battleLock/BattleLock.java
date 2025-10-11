@@ -26,6 +26,10 @@ public final class BattleLock extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new CommandListener(this, combatManager), this);
         getServer().getPluginManager().registerEvents(new PlayerListener(this, combatManager, combatLogManager), this);
 
+        // Initialise bStats
+        int pluginId = 27551;
+        new Metrics(this, pluginId);
+
         getLogger().info("BattleLock has been enabled! Combat logging protection is now active.");
     }
 

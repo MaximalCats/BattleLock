@@ -3,11 +3,12 @@ package com.jellypudding.battleLock.managers;
 import com.jellypudding.battleLock.BattleLock;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import net.kyori.adventure.text.Component;
@@ -30,6 +31,7 @@ public class CombatLogManager {
     private final Map<UUID, Integer> scheduledTasks; // Track scheduled despawn tasks
     private final Map<UUID, Location> npcLocations; // Store NPC locations for item dropping
     private final int logoutDespawnTime;
+    private final NamespacedKey combatLogKey;
 
     public CombatLogManager(BattleLock plugin, CombatManager combatManager, DataManager dataManager) {
         this.plugin = plugin;
@@ -42,6 +44,7 @@ public class CombatLogManager {
         this.scheduledTasks = new ConcurrentHashMap<>();
         this.npcLocations = new ConcurrentHashMap<>();
         this.logoutDespawnTime = plugin.getConfig().getInt("combat-log-despawn-time", 30) * 20; // Convert to ticks
+        this.combatLogKey = new NamespacedKey(plugin, "combat_log_player_id");
     }
 
     /**
@@ -80,7 +83,7 @@ public class CombatLogManager {
         npc.setSilent(true);
         npc.setHealth(Math.min(player.getHealth(), 20.0));
         npc.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, Integer.MAX_VALUE, 10, false, false));
-        npc.setMetadata("BattleLock_CombatLog", new FixedMetadataValue(plugin, playerId.toString()));
+        npc.getPersistentDataContainer().set(combatLogKey, PersistentDataType.STRING, playerId.toString());
 
         // Register the NPC
         combatLogNPCs.put(playerId, npc.getEntityId());
@@ -271,5 +274,14 @@ public class CombatLogManager {
      */
     public boolean isCombatLogNPC(int entityId) {
         return entityPlayerMap.containsKey(entityId);
+    }
+
+    /**
+     * Get the NamespacedKey used for marking combat log NPCs
+     *
+     * @return The NamespacedKey for combat log NPCs
+     */
+    public NamespacedKey getCombatLogKey() {
+        return combatLogKey;
     }
 }

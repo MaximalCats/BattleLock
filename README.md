@@ -1,5 +1,5 @@
 # BattleLock Plugin
-**BattleLock** is a Minecraft Paper 1.21.8 plugin that prevents combat logging and command use during PvP. When players engage in PvP combat, they are "tagged" and cannot use most commands until the tag expires. If a player logs out during combat, an NPC is created in their place that can be killed by other players - potentially causing the combat logger to lose all their items when they return.
+**BattleLock** is a Minecraft Paper 1.21.10 plugin that prevents combat logging and command use during PvP. When players engage in PvP combat, they are "tagged" and cannot use most commands until the tag expires. If a player logs out during combat, an NPC is created in their place that can be killed by other players - potentially causing the combat logger to lose all their items when they return.
 
 ## Features
 - Prevents combat logging by creating killable NPCs when players log out during PvP
@@ -54,6 +54,28 @@ allowed-commands:
 - The NPC will automatically despawn after the configured time if no one kills it
 - Combat loggers are notified what happened to their NPC when they return
 - Punishment records never expire - even if a player waits months to return or the server restarts multiple times
+
+## For Plugin Developers
+BattleLock marks combat log NPCs using `PersistentDataContainer` for easy detection by other plugins:
+
+- **Namespace:** `battlelock`
+- **Key:** `combat_log_player_id`
+- **Type:** `PersistentDataType.STRING` (contains the player's UUID as a string)
+
+### Example Usage
+```java
+import org.bukkit.NamespacedKey;
+import org.bukkit.entity.Entity;
+import org.bukkit.persistence.PersistentDataType;
+
+// Check if an entity is a BattleLock combat log NPC
+NamespacedKey battleLockKey = new NamespacedKey("battlelock", "combat_log_player_id");
+if (entity.getPersistentDataContainer().has(battleLockKey, PersistentDataType.STRING)) {
+    // This is a BattleLock combat log NPC
+    String playerUUID = entity.getPersistentDataContainer().get(battleLockKey, PersistentDataType.STRING);
+    // Use the UUID as needed
+}
+```
 
 ## Support Me
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/K3K715TC1R)
