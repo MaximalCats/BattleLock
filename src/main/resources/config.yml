@@ -17,6 +17,10 @@ allowed-commands:
   - "w"
   - "me"
 
+# Whether or not to allow players with the permission: battlelock.bypass
+# to bypass being combat logged.
+allow-bypass: true
+
 # Messages
 messages:
   combat-started: "&cYou are now in combat. Do not log out or you will be punished."
