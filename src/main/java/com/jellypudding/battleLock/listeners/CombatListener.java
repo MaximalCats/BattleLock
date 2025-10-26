@@ -54,7 +54,9 @@ public class CombatListener implements Listener {
         }
 
         // If it's PvP combat, tag both players
-        if (attacker != null && !attacker.equals(victim)) {
+        if (attacker != null && !attacker.equals(victim) 
+                && !attacker.hasPermission("battlelock.bypass")
+                && !victim.hasPermission("battlelock.bypass")) {
             combatManager.tagPlayer(victim);
             combatManager.tagPlayer(attacker);
         }
